@@ -1,131 +1,77 @@
 # Blood Bank Coordination System
-### Next.js + MySQL 8 + MongoDB
 
-A web-based blood bank management and coordination system designed to streamline blood donations, manage blood inventory, handle hospital requests, and facilitate compatible blood matching.
+A web-based application for managing blood donors, donations, blood inventory, hospital requests, and blood matching.
 
-The system combines **MySQL 8** for structured relational data management and **MongoDB** for maintaining an append-only audit trail of application changes.
+## Tech Stack
 
-## Technology Stack
+- **Frontend:** Next.js 14, React 18
+- **Backend:** Next.js API Routes
+- **Database:** MySQL 8
+- **NoSQL:** MongoDB
+- **Password Hashing:** bcryptjs
 
-- **Frontend:** Next.js
-- **Relational Database:** MySQL 8
-- **NoSQL Database:** MongoDB
-- **Password Security:** bcrypt hashing
+## Features
 
-## Database Architecture
+- **Dashboard:** Overview of blood stock, requests, donations, and donors.
+- **Inventory Management:** Track blood units across hospitals and manage their status.
+- **Donor Management:** Add, update, view, and delete donor records.
+- **Donation Management:** Register donations and check donor eligibility with a 56-day donation interval.
+- **Requests & Matching:** Manage hospital blood requests and find compatible blood units using ABO/Rh rules.
+- **Eligibility:** Record donor eligibility checks and search remarks.
+- **Camps & Hospitals:** Manage donation camps and hospital records.
+- **User Management:** Manage user accounts and roles.
+- **Audit Trail:** Store and view application activity using MongoDB.
 
-### MySQL – Relational Database
+## Database
 
-MySQL stores the core application data in the `blood_bank_system` database. The database schema is defined in `db/schema.sql`.
+**MySQL 8**
+- 11 tables
+- 3 views
+- 3 triggers
+- 2 stored procedures
+- Constraints, indexes, transactions, and full-text search.
 
-It includes:
+**MongoDB**
+- Stores application activity in the `bloodbank_nosql.audit_log` collection.
+- Optional; the application works without MongoDB.
 
-- Tables for donors, donations, blood inventory, hospitals, blood requests, camps, and users.
-- Views for retrieving and presenting meaningful data.
-- Triggers for automated database operations and integrity enforcement.
-- Stored procedures:
-  - `sp_RegisterDonation` – Handles donation registration and related database operations.
-  - `sp_ConfirmMatch` – Confirms compatible blood matches and updates inventory accordingly.
+## Installation and Setup
 
-### MongoDB – NoSQL Database
-
-MongoDB maintains an append-only audit log in `bloodbank_nosql.audit_log`.
-
-It records application changes and provides a historical trail of important operations.
-
-MongoDB is optional. The application works without it, but the Audit Trail section displays an availability notice when MongoDB is not connected.
-
-## Application Modules
-
-| Module | Description |
-|---|---|
-| **Overview** | Displays current blood stock, critical hospital requests, units nearing expiry, and donors eligible for their next donation. |
-| **Inventory** | Tracks blood availability across hospitals, manages unit status changes, and handles expired blood unit disposal. |
-| **Requests & Matching** | Creates hospital blood requests, identifies compatible blood units using ABO/Rh compatibility rules, proposes and confirms matches, fulfils requests, and cancels requests while releasing reserved units. |
-| **Donors** | Supports donor registration and management, including adding, editing, and deleting donor records. |
-| **Donations** | Registers donations through `sp_RegisterDonation`, verifies donor eligibility, and enforces the minimum 56-day interval between donations. |
-| **Camps** | Manages blood donation camp records and related information. |
-| **Hospitals** | Maintains hospital details and supports hospital record management. |
-| **Users** | Manages application users and securely stores passwords using bcrypt hashing. |
-| **Eligibility** | Records donor eligibility assessments and supports full-text searching of remarks using MySQL `MATCH ... AGAINST`. |
-| **Audit Trail** | Retrieves historical application changes from MongoDB. |
-
-## Key Features
-
-- Centralized blood inventory management.
-- Blood availability tracking across hospitals.
-- ABO and Rh-based blood compatibility matching.
-- Automated donor eligibility and donation interval checks.
-- Hospital blood request management and fulfilment.
-- Stored procedure-based donation registration and match confirmation.
-- Secure password storage using bcrypt.
-- Full-text search for donor eligibility remarks.
-- MongoDB-based append-only audit logging.
-- Dashboard displaying important operational information.
-
-## Prerequisites
-
-Make sure the following are installed:
-
+### Prerequisites
 - Node.js and npm
 - MySQL 8
 - MongoDB (optional)
 
-## Installation and Setup
-
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone https://github.com/meghanapillappa/blood_management.git
+cd blood_management/bloodbank
 ```
 
-### 2. Initialize the MySQL Database
-
-Run the following command from the project root:
+### 2. Set Up MySQL
 
 ```bash
 mysql -u root -p < db/schema.sql
 ```
 
-This creates or recreates the `blood_bank_system` database, including its tables, views, triggers, stored procedures, and sample data.
-
-**Note:** Running this script may replace existing database contents.
-
-### 3. Start MongoDB (Optional)
-
-Start your local MongoDB server if you want to use the Audit Trail module.
-
-The application can run without MongoDB.
-
-### 4. Configure Environment Variables
-
-Copy the example environment file:
+### 3. Configure Environment Variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-Update `.env.local` with your MySQL credentials and other required database connection settings.
+Update `.env.local` with your MySQL credentials and MongoDB connection string.
 
-### 5. Install Dependencies
+### 4. Install Dependencies and Run
 
 ```bash
 npm install
-```
-
-### 6. Start the Development Server
-
-```bash
 npm run dev
 ```
 
-Open the application in your browser:
-
-**http://localhost:3000**
+Open **http://localhost:3000** in your browser.
 
 ## Project Objective
 
-The primary objective of the Blood Bank Coordination System is to improve the efficiency of blood bank operations by integrating donor management, donation tracking, inventory monitoring, and hospital blood requests into a unified platform.
-
-By combining relational database operations with NoSQL audit logging, the project demonstrates the practical application of SQL and NoSQL database technologies in a real-world blood bank coordination scenario.
+To simplify blood bank operations by providing a centralized platform for managing donors, donations, inventory, hospital requests, and blood compatibility matching using SQL and NoSQL database technologies.
