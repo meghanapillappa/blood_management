@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Instrument+Sans:wght@400;500;600&display=swap');
+:root{--bg:#EEF1F4;--ink:#1B2430;--mute:#5E6B7A;--line:#D5DBE2;--panel:#fff;--blood:#A3122A;--blood-d:#6E0B1C;--tint:#F7DDE1;--ok:#0E7C66;--warn:#B7791F}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Instrument Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;margin:0}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+nav{background:var(--blood-d);color:#fff;padding:24px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:2px}
+nav h1{font-size:21px;padding:0 10px 18px;line-height:1.15}
+nav button{all:unset;cursor:pointer;padding:9px 10px;border-radius:8px;color:#f0c6cd}
+nav button:hover{background:rgba(255,255,255,.08)}nav button.on{background:#fff;color:var(--blood-d);font-weight:600}
+main{padding:28px 32px;max-width:1200px}main>header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;gap:12px;flex-wrap:wrap}
+h2{font-size:28px}h3{font-size:17px;margin-bottom:10px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:18px;overflow-x:auto}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.stats{display:flex;gap:28px;margin-bottom:22px;flex-wrap:wrap}.stats div{min-width:90px}.stats b{display:block;font:700 34px 'Bricolage Grotesque'}.stats span{color:var(--mute)}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-weight:600;color:var(--mute);font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}tr:last-child td{border:0}
+.row{display:flex;gap:6px;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 12px;font:inherit;cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--blood)}.btn.p{background:var(--blood);color:#fff;border-color:var(--blood)}.btn.d{color:var(--blood)}.btn.sm{padding:3px 9px;font-size:13px}
+input,select{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:7px;background:#fff;min-width:0}
+input:focus-visible,select:focus-visible,.btn:focus-visible,nav button:focus-visible{outline:2px solid var(--blood);outline-offset:1px}
+.bar{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center}.bar .grow{flex:1;min-width:160px}
+.bags{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:14px}
+.bag{height:150px;border:2px solid var(--blood);border-radius:14px 14px 34px 34px;position:relative;overflow:hidden;background:#fff}
+.bag i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(var(--blood),var(--blood-d));transition:height .6s}
+.bag.low{border-color:var(--warn)}.bag.low i{background:var(--warn)}
+.bag div{position:relative;z-index:1;text-align:center;padding-top:34px}
+.bag b{display:block;font:700 30px 'Bricolage Grotesque';text-shadow:0 0 6px #fff,0 0 2px #fff}.bag span{background:#ffffffd0;border-radius:6px;padding:0 6px;font-size:13px}
+.b{padding:2px 9px;border-radius:99px;font-size:12.5px;font-weight:600;background:#e6eaef}
+.Critical,.Discarded,.Rejected{background:var(--tint);color:var(--blood-d)}.High,.Pending,.Reserved,.Proposed,.Medium{background:#FBEFD5;color:#7A5210}
+.Available,.Fulfilled,.Confirmed,.Matched,.Low,.Used{background:#D7F0E9;color:#085745}.Cancelled{background:#e6eaef}
+.modal{position:fixed;inset:0;background:#1b243088;display:grid;place-items:center;z-index:5;padding:16px}
+.modal form{background:#fff;border-radius:12px;padding:22px;width:min(480px,100%);max-height:90vh;overflow:auto;display:grid;gap:12px}
+.modal label{display:grid;gap:4px;font-size:13px;color:var(--mute)}.modal label input[type=checkbox]{justify-self:start}.modal input,.modal select{color:var(--ink);font-size:15px}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;z-index:9;max-width:380px}.toast.err{background:var(--blood)}
+.empty{color:var(--mute);padding:14px 4px}
+@media(max-width:820px){.app{grid-template-columns:1fr}nav{position:static;height:auto;flex-direction:row;flex-wrap:wrap}nav h1{width:100%}main{padding:18px}.two{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.bag i{transition:none}}
